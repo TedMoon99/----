@@ -267,57 +267,60 @@ def check_sorted(A):
 # Qs는 quick sort에서 두 수를 교환(swap)한 횟수 저장
 # Mc, Ms는 merge sort에서 비교, 교환(또는 이동) 횟수 저장
 # Hc, Hs는 heap sort에서 비교, 교환(또는 이동) 횟수 저장
-Qc, Qs, Mc, Ms, Hc, Hs, Qc1, Qs1, Qc2, Qs2, Mc2, Ms2  = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-
-n = int(input("삽입할 데이터의 개수를 입력하세요 : "))
-K = int(input("추가 점수 코드에서의 K를 몇으로 할 지 입력하세요 : "))
-random.seed()
-A = []
-for i in range(n):
-  A.append(random.randint(-1000,1000))
-B = A[:] 
-C = A[:] 
-D = A[:]
-E = A[:]
-F = A[:]
-G = A[:]
-print("")
-print("Quick sort:")
-print("time =", timeit.timeit("quick_sort(A, 0, n-1)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc, Qs))
-
-
-print("Quick sort1:")
-print("time =", timeit.timeit("quick_sort1(D, 0, n-1, K)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc1, Qs1))
+while True:
+  Qc, Qs, Mc, Ms, Hc, Hs, Qc1, Qs1, Qc2, Qs2, Mc2, Ms2  = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+  n, K = map(int, input().split())
+  if n == -1 and K == -1:
+    print("실행을 종료합니다.")
+    break
+  random.seed()
+  A = []
+  for i in range(n):
+    A.append(random.randint(-1000,1000))
+  B = A[:] 
+  C = A[:] 
+  D = A[:]
+  E = A[:]
+  F = A[:]
+  G = A[:]
+  print("")
+  print("Quick sort:")
+  print("time =", timeit.timeit("quick_sort(A, 0, n-1)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc, Qs))
 
 
-print("Quick sort2:")
-print("time =", timeit.timeit("quick_sort2(E)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc2, Qs2))
-
-print("Merge sort:")
-print("time =", timeit.timeit("merge_sort(B, 0, n-1)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc, Ms))
+  print("Quick sort1:")
+  print("time =", timeit.timeit("quick_sort1(D, 0, n-1, K)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc1, Qs1))
 
 
-print("Merge sort2:")
-print("time =", timeit.timeit("merge_sort2(F, 0, n-1)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc2, Ms2))
+  print("Quick sort2:")
+  print("time =", timeit.timeit("quick_sort2(E)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc2, Qs2))
+
+  print("Merge sort:")
+  print("time =", timeit.timeit("merge_sort(B, 0, n-1)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc, Ms))
 
 
-print("Heap sort:")
-print("time =", timeit.timeit("heap_sort(C)", globals=globals(), number=1))
-print("  comparisons = {:10d}, swaps = {:10d}\n".format(Hc, Hs))
+  print("Merge sort2:")
+  print("time =", timeit.timeit("merge_sort2(F, 0, n-1)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc2, Ms2))
 
-print("Tim sort:")
-print("time=", timeit.timeit("tim_sort(G)", globals=globals(), number=1))
 
-# 진짜 정렬되었는지 check한다. 정렬이 되지 않았다면, assert 함수가 fail됨!
-assert(check_sorted(A))
-assert(check_sorted(B))
-assert(check_sorted(C))
-assert(check_sorted(D))
-assert(check_sorted(E))
-assert(check_sorted(F))
-assert(check_sorted(G))
+  print("Heap sort:")
+  print("time =", timeit.timeit("heap_sort(C)", globals=globals(), number=1))
+  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Hc, Hs))
+
+  print("Tim sort:")
+  print("time=", timeit.timeit("tim_sort(G)", globals=globals(), number=1))
+
+  # 진짜 정렬되었는지 check한다. 정렬이 되지 않았다면, assert 함수가 fail됨!
+  assert(check_sorted(A))
+  assert(check_sorted(B))
+  assert(check_sorted(C))
+  assert(check_sorted(D))
+  assert(check_sorted(E))
+  assert(check_sorted(F))
+  assert(check_sorted(G))
+  

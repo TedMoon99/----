@@ -1,5 +1,7 @@
 import random, timeit
-
+import pandas as pd
+import numpy as np
+from IPython.display import display
 def insertion_sort1(A, n):
   global Qc1, Qs1
   for i in range(1, n): # 1 ~ n
@@ -208,10 +210,6 @@ def merge_sort2(A, first, last):
   for z in range(first, last+1): 
     A[z] = B[z-first]	
     Ms2 += 1
-  
-
-
-  
 
 def heapify_down(A, k, size):
   global Hc, Hs
@@ -283,37 +281,28 @@ while True:
   E = A[:]
   F = A[:]
   G = A[:]
-  print("")
-  print("Quick sort:")
-  print("time =", timeit.timeit("quick_sort(A, 0, n-1)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc, Qs))
+  
+  print("")  
+  Qc_time = timeit.timeit("quick_sort(A, 0, n-1)", globals=globals(), number=1)
+  Qc_list = [Qc_time, Qc, Qs]
+  
+  Qc1_time = timeit.timeit("quick_sort1(D, 0, n-1, K)", globals=globals(), number=1)
+  Qc1_list = [Qc1_time, Qc1, Qs1]
 
+  Qc2_time = timeit.timeit("quick_sort2(E)", globals=globals(), number=1)
+  Qc2_list = [Qc2_time, Qc2, Qs2]
 
-  print("Quick sort1:")
-  print("time =", timeit.timeit("quick_sort1(D, 0, n-1, K)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc1, Qs1))
+  Mc_time = timeit.timeit("merge_sort(B, 0, n-1)", globals=globals(), number=1)
+  Mc_list = [Mc_time, Mc, Ms]
+  
+  MC2_time = timeit.timeit("merge_sort2(F, 0, n-1)", globals=globals(), number=1)
+  Mc2_list = [MC2_time, Mc2, Ms2]
 
-
-  print("Quick sort2:")
-  print("time =", timeit.timeit("quick_sort2(E)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Qc2, Qs2))
-
-  print("Merge sort:")
-  print("time =", timeit.timeit("merge_sort(B, 0, n-1)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc, Ms))
-
-
-  print("Merge sort2:")
-  print("time =", timeit.timeit("merge_sort2(F, 0, n-1)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Mc2, Ms2))
-
-
-  print("Heap sort:")
-  print("time =", timeit.timeit("heap_sort(C)", globals=globals(), number=1))
-  print("  comparisons = {:10d}, swaps = {:10d}\n".format(Hc, Hs))
-
-  print("Tim sort:")
-  print("time=", timeit.timeit("tim_sort(G)", globals=globals(), number=1))
+  Hc_time = timeit.timeit("heap_sort(C)", globals=globals(), number=1)
+  Hc_list = [Hc_time, Hc, Hs]
+  
+  Tc_time = timeit.timeit("tim_sort(G)", globals=globals(), number=1)
+  Tc_list = [Tc_time, None, None]
 
   # 진짜 정렬되었는지 check한다. 정렬이 되지 않았다면, assert 함수가 fail됨!
   assert(check_sorted(A))
@@ -324,3 +313,11 @@ while True:
   assert(check_sorted(F))
   assert(check_sorted(G))
   
+  print(f"n = {n}, K = {K}")
+  print(Qc_list, end="-->  Quick sort \n")
+  print(Qc1_list, end="-->  Quick sort1 \n")
+  print(Qc2_list, end="-->  Quick sort2 \n")
+  print(Mc_list, end="-->  Merge sort \n")
+  print(Mc2_list, end="-->  Merge sort2 \n")
+  print(Hc_list, end="-->  Heap sort \n")
+  print(Tc_list, end="-->  Tim sort \n")

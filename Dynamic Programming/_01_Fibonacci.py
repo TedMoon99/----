@@ -31,7 +31,7 @@ def fibo3(n): # 기록 + 재사용 비재귀 알고리즘 2
   위의 재귀 알고리즘1에서는 재귀호출하면서 memo에 값을 처음에만 기록하고 그 이후엔 재사용한다. 이 방식은 기록한 후 재사용하는 재귀호출 방법이지만 재귀호출하지 않고도 리스트를 사용하여 직관적이고 간단하게 구현 가능
   '''
   F = [0, 1]
-  if k in range(2, n+1): # 2 ~ n
+  for k in range(1, n+1): # 2 ~ n
     F.append(F[k-1] + F[k])
   return F[n]
 # What is k?
@@ -42,10 +42,13 @@ n= int(input("구하고 싶으면 fibonacci 수를 입력하세요 :"))
 
 print("")
 fibo_time1 = timeit.timeit("fibo1(n)",globals=globals(), number=1)
+print(f"fibo1(n)의 실행결과는 {fibo1(n)}이다.")
 print(fibo_time1)
 
 fibo_time2 = timeit.timeit("fibo2(n)",globals=globals(), number=1)
+print(f"fibo2(n)의 실행결과는 {fibo2(n)}이다.")
 print(fibo_time2)
 
 fibo_time3 = timeit.timeit("fibo3(n)",globals=globals(), number=1)
+print(f"fibo3(n)의 실행결과는 {fibo3(n)}이다.")
 print(fibo_time3)

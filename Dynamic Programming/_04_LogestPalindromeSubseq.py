@@ -13,28 +13,28 @@
 주석: 알고리즘을 간단히 설명하고 수행 시간을 분석하시오
 '''
 
-# LCS(Longest Comon Subsequence) 계산하기
+
 def LPS(X, Y):
-  n, m = len(X), len(Y)
+  n, m = len(X), len(Y) # 10, 10
   # prepare 2d list len and initialization
   A = [
-    [None] * n
-    for _ in range(n)
+    [None] * (m+1)
+    for _ in range(n+1)
   ]
   
-  for j in range(0, n):
+  for j in range(0, n+1):
     A[0][j],A[j][0] = 0, 0
+  
   # filling DP table A
-  for i in range(1, n):
-    for j in range(1, m):
-      if X[i] == Y[j]: # 마지막 두 글자가 같으면
+  for i in range(1, n+1):
+    for j in range(1, m+1):
+      if X[i-1] == Y[j-1]: # 마지막 두 글자가 같으면
         A[i][j] = A[i-1][j-1] + 1
       else:
         A[i][j] = max(A[i-1][j], A[i][j-1])
-  return A[n-1][m-1]
-  
-  
-x = "CHEESECAKE"
-y = x[:]
+  return A[n][m]
+
+x = input()
+y = x[::-1]
 result = LPS(x, y)
 print(result)

@@ -16,10 +16,29 @@ lh = list(map(int, input().split())) # lh = List of the Height
 # Stack에 들어갈 것 : Stack에 저장된 빌딩 중에 최고의 높이보다 높은 빌딩의 index를 저장 / Stack이 Empty라면? => 일단 0번쨰 정보 저장
 # index란? : lh에 저장된 bulding들의 Height를 지칭하는 정보 즉, lh[index]는 index번째 빌딩의 높이를 의미함
 def maxAreaOfBuilding(lh): # lh : List of Height
-  stack, maxArea = [0], 0
+  stack, maxArea, index = [], 0, 0
   # 가장 왼쪽부터 오른쪽까지 정보를 모두 읽어간다.
-  for i in range(1, len(lh)): # 1 ~ n-1
+  while index < len(lh):
     # Stack에 저장되어있는 높이들 중에 가장 큰 높이(lh[stack[-1])보다 현재 빌딩의 높이(lh[index])가 더 크면 Stack에 현재 빌딩의 index를 저장
-    while lh[stack[-1]] < lh[i]:
-      
-      stack.append(i)
+    while stack != None and lh[stack[-1]] > lh[index]:
+      tos = stack.pop()
+      if stack == None:
+        width = index
+      else:
+        width = index - stack[-1] - 1
+      maxArea = max(maxArea, lh[tos] * width)
+    stack.append(index)
+    index += 1
+  
+  while stack != None:
+    tos = stack.pop()
+    if stack == None:
+      width = index
+    else:
+      width = index - stack[-1] - 1
+    maxArea = max(maxArea, lh[tos] * width)
+    
+  return maxArea
+
+result = maxAreaOfBuilding(lh)
+print(result)
